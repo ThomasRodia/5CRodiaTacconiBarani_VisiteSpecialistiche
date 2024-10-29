@@ -15,21 +15,7 @@ const createForm = (parentElement) => {
             callback = callbackInput
         },
 
-        loadSpecialityTabs: () => {
-            const specialtyContainer = document.getElementById("specialty-tabs");
-
-    specialties.forEach((specialty, index) => {
-        const button = document.createElement("button");
-        button.classList.add("specialty-tab");
-        button.textContent = specialty;
-        button.onclick = () => loadSpecialty(button);
         
-        // Rendi il secondo pulsante (Psicologia) attivo inizialmente
-        if (index === 1) button.classList.add("active");
-
-        specialtyContainer.appendChild(button);
-    });
-        },
         
         render: () => {
             for (let key in data) {

@@ -2,8 +2,41 @@
 const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
 const myKey = 'tesoro';
 
+// creo array per le tipologie
+const specialties = ["Cardiologia", "Psicologia", "Oncologia", "Ortopedia", "Neurologia"];
+
+// generazione dei pulsanti
+function loadSpecialtyTabs() {
+    const specialtyContainer = document.getElementById("specialty-tabs");
+
+    
+    let buttonsHTML = '';
+    specialties.forEach((specialty, index) => {
+        buttonsHTML += `<button class="specialty-tab${index === 1 ? ' active' : ''}" onclick="loadSpecialty(this)">${specialty}</button>`;
+    });
+
+    // assegno stringa html
+    specialtyContainer.innerHTML = buttonsHTML;
+}
+
+// Funzione per caricare la specialità selezionata e aggiornare la classe `active`
+function loadSpecialty(selectedButton) {
+    // Rimuove la classe `active` da tutti i pulsanti
+    document.querySelectorAll('.specialty-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // aggiungo la classe `active` al pulsante cliccato
+    selectedButton.classList.add('active');
+
+}
+
+// inizializzo i pulsanti delle specialità al caricamento della pagina
+document.addEventListener("DOMContentLoaded", loadSpecialtyTabs);
+
+/*
 const struttura_albergo = {
-  Ora: 10,
+  data: 10,
   Nominativo: 5
 }
 
@@ -182,5 +215,5 @@ initTable().then(tableStructure => {
 
 });
 
-
+*/
 // -----------------------------------------------------------------------------------------------

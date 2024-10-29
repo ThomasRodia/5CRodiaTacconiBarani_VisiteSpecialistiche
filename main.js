@@ -17,6 +17,11 @@ function positivo(arr) {
   return arr.every(num => num >= 0);
 }
 
+
+
+
+
+
 function controllaCamere(dati) {
   let key = Object.keys(struttura_albergo);
   let info = dati.split(",");
@@ -56,11 +61,26 @@ function render() {
   table1.rendert();
 }
 
+
+
+
+
+
+
+
+
 const creaBase = () => {
   let tipiStanze = { "Data": "date" };
   Object.keys(struttura_albergo).forEach(e => tipiStanze[e] = "text");
   return tipiStanze;
 }
+
+
+
+
+
+
+
 
 const table1 = createTable(document.getElementById('tabella'));
 const response = document.getElementById("response");
@@ -126,6 +146,10 @@ const salvaDati = (data, camere) => {
       .catch(error => reject(error));
   });
 }
+
+
+
+
 
 const prendiDati = (myKey, myToken) => {
   return new Promise((resolve, reject) => {

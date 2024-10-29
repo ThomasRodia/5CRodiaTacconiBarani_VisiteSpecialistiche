@@ -3,10 +3,8 @@ const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
 const myKey = 'tesoro';
 
 const struttura_albergo = {
-  singola: 10,
-  doppia: 5,
-  suite: 3,
-  
+  Ora: 10,
+  Nominativo: 5
 }
 
 let informazioni = {};
@@ -157,5 +155,8 @@ booker.render();
 initTable().then(tableStructure => {
   table1.build(tableStructure);
   table1.render();
+
 });
+
+
 // -----------------------------------------------------------------------------------------------

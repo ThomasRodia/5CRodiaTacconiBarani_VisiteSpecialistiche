@@ -44,6 +44,19 @@ function loadSpecialty(selectedButton) {
 document.addEventListener("DOMContentLoaded", loadSpecialtyTabs);
 
 
+function createPrenota() {
+  document.getElementById("controls").innerHTML = `
+      <button class="book-button" onclick="bookAppointment()">Prenota</button>
+  `;
+}
+
+document.addEventListener("DOMContentLoaded", createPrenota);
+
+////////
+
+
+
+
 /*
 const struttura_albergo = {
   data: 10,

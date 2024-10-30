@@ -17,26 +17,32 @@ const createForm = (parentElement) => {
 
         
         
-        /*render: () => {
+        render: () => {
             for (let key in data) {
                 parentElement.innerHTML += `<div>${key}\n<input id="${key}" type="${data[key]}"/></div>` + '\n';
             }
-           
 
-           parentElement.innerHTML += "<button type='button' id='submit'>Submit</button>";
+            parentElement.innerHTML += "<button type='button' id='prenota'>Prenota</button>";
 
             document.querySelector("#submit").onclick = () => {
                 const result = Object.keys(data).map((name) => {
                     return document.querySelector("#" + name).value;
                 });
 
-                
+                document.querySelector("#prenota").onclick = () => {
+                    const result = Object.keys(data).map((name) => {
+                        return document.querySelector("#" + name).value;
+                    });
+                    
+                    
+                };
+
 
                 callback(result);
             }
             
         }
-            */
+            
     }
 }
 

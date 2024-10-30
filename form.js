@@ -17,7 +17,7 @@ const createForm = (parentElement) => {
 
         
         
-        render: () => {
+        /*render: () => {
             for (let key in data) {
                 parentElement.innerHTML += `<div>${key}\n<input id="${key}" type="${data[key]}"/></div>` + '\n';
             }
@@ -36,6 +36,7 @@ const createForm = (parentElement) => {
             }
             
         }
+            */
     }
 }
 

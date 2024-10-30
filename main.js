@@ -2,6 +2,8 @@
 const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
 const myKey = 'tesoro';
 
+
+// creo Dizionario per le tipologie
 const specialties = {
   cardiology: "Cardiologia",
   psychology: "Psicologia",
@@ -10,14 +12,14 @@ const specialties = {
   neurology: "Neurologia"
 };
 
-// creo Dizionario per le tipologie
+
 function loadSpecialtyTabs() {
   const specialtyContainer = document.getElementById("specialty-tabs");
 
   // Creazione dei pulsanti utilizzando Object.keys per ottenere le chiavi del dizionario
   let buttonsHTML = '';
   Object.keys(specialties).forEach((key, index) => {
-      buttonsHTML += `<button class="specialty-tab${index === 0 ? ' active' : ''}" onclick="loadSpecialty(this)">
+      buttonsHTML += `<button class="specialty-tab${index === 2 ? ' active' : ''}" onclick="loadSpecialty(this)">
           ${specialties[key]}
       </button>`;
   });
@@ -37,8 +39,10 @@ function loadSpecialty(selectedButton) {
   selectedButton.classList.add('active');
 }
 
+
 // Inizializza i pulsanti delle specialità al caricamento della paginaf
 document.addEventListener("DOMContentLoaded", loadSpecialtyTabs);
+
 
 /*
 const struttura_albergo = {

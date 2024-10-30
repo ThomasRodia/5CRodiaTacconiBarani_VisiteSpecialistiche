@@ -2,36 +2,42 @@
 const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
 const myKey = 'tesoro';
 
-// creo array per le tipologie
-const specialties = ["Cardiologia", "Psicologia", "Oncologia", "Ortopedia", "Neurologia"];
+const specialties = {
+  cardiology: "Cardiologia",
+  psychology: "Psicologia",
+  oncology: "Oncologia",
+  orthopedics: "Ortopedia",
+  neurology: "Neurologia"
+};
 
-// generazione dei pulsanti
+// creo Dizionario per le tipologie
 function loadSpecialtyTabs() {
-    const specialtyContainer = document.getElementById("specialty-tabs");
+  const specialtyContainer = document.getElementById("specialty-tabs");
 
-    
-    let buttonsHTML = '';
-    specialties.forEach((specialty, index) => {
-        buttonsHTML += `<button class="specialty-tab${index === 1 ? ' active' : ''}" onclick="loadSpecialty(this)">${specialty}</button>`;
-    });
+  // Creazione dei pulsanti utilizzando Object.keys per ottenere le chiavi del dizionario
+  let buttonsHTML = '';
+  Object.keys(specialties).forEach((key, index) => {
+      buttonsHTML += `<button class="specialty-tab${index === 0 ? ' active' : ''}" onclick="loadSpecialty(this)">
+          ${specialties[key]}
+      </button>`;
+  });
 
-    // assegno stringa html
-    specialtyContainer.innerHTML = buttonsHTML;
+  
+  specialtyContainer.innerHTML = buttonsHTML;
 }
 
-// Funzione per caricare la specialità selezionata e aggiornare la classe `active`
+// Funzione per aggiornare la specialità selezionata e la classe `active`
 function loadSpecialty(selectedButton) {
-    // Rimuove la classe `active` da tutti i pulsanti
-    document.querySelectorAll('.specialty-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+  // Rimuove la classe `active` da tutti i pulsanti
+  document.querySelectorAll('.specialty-tab').forEach(tab => {
+      tab.classList.remove('active');
+  });
 
-    // aggiungo la classe `active` al pulsante cliccato
-    selectedButton.classList.add('active');
-
+  // Aggiunge la classe `active` al pulsante cliccato
+  selectedButton.classList.add('active');
 }
 
-// inizializzo i pulsanti delle specialità al caricamento della pagina
+// Inizializza i pulsanti delle specialità al caricamento della pagina
 document.addEventListener("DOMContentLoaded", loadSpecialtyTabs);
 
 /*

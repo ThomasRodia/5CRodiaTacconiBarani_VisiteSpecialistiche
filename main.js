@@ -37,7 +37,7 @@ function loadSpecialty(selectedButton) {
   selectedButton.classList.add('active');
 }
 
-// Inizializza i pulsanti delle specialità al caricamento della pagina
+// Inizializza i pulsanti delle specialità al caricamento della paginaf
 document.addEventListener("DOMContentLoaded", loadSpecialtyTabs);
 
 /*

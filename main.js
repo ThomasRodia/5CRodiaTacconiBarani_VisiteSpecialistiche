@@ -19,10 +19,17 @@ function loadSpecialtyTabs() {
   // Creazione dei pulsanti utilizzando Object.keys per ottenere le chiavi del dizionario
   let buttonsHTML = '';
   Object.keys(specialties).forEach((key, index) => {
-      buttonsHTML += `<button class="specialty-tab${index === 2 ? ' active' : ''}" onclick="loadSpecialty(this)">
+      let buttonClass = 'specialty-tab';
+      
+      if (index === 2) {
+          buttonClass += ' active'; // Aggiunge ' active' se l'indice è 2
+      }
+      
+      buttonsHTML += `<button class="${buttonClass}" onclick="loadSpecialty(this)">
           ${specialties[key]}
       </button>`;
   });
+  
 
   
   specialtyContainer.innerHTML = buttonsHTML;

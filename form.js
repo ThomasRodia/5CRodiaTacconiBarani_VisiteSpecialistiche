@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------------------------------------------------------
 
-
+//const prenota=document.getElementById("Controls");
 
 // Creata la form
 const createForm = (parentElement) => {
@@ -15,12 +15,11 @@ const createForm = (parentElement) => {
             callback = callbackInput
         },
 
-        //document.getElementById(createPrenota).addEventListener("click", function() {
-        //    creaModale();
-        //});
-        
+        prenota: (document.getElementById("Controls")).onclick=function(){
+            creaModale();
+        },
+
         creaModale:() =>{
-            // Aggiunge la struttura del modale direttamente all'interno del body
             document.body.innerHTML += `
                 <div class="modal fade" id="dynamicModal" tabindex="-1">
                     <div class="modal-dialog">
@@ -31,7 +30,7 @@ const createForm = (parentElement) => {
                             </div>
                             <div class="modal-body">
                                 <p>Modal body text goes here.</p>
-                            </div>
+                            </div>  
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -41,11 +40,8 @@ const createForm = (parentElement) => {
                 </div>
             `;
         
-            // Inizializzazione e visualizzazione del modale con Bootstrap
             const modal = new bootstrap.Modal(document.getElementById('dynamicModal'));
-            modal.show();
-        
-            // Rimozione del modale dal DOM una volta chiuso
+            modal.show();           
             document.getElementById('dynamicModal').addEventListener('hidden.bs.modal', function () {
                 document.getElementById('dynamicModal').remove();
             });

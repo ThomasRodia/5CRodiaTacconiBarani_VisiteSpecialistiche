@@ -4,7 +4,8 @@ const specialties = {
     psychology: "Psicologia",
     oncology: "Oncologia",
     orthopedics: "Ortopedia",
-    neurology: "Neurologia"
+    neurology: "Neurologia",
+    
   };
   
   

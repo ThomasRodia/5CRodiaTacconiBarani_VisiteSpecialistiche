@@ -18,21 +18,33 @@ const createTabella = (parentElement) => {
         crea: (listadata, hours) => {
             console.log("List data = "+ listadata);
             let Row = "";
-            let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome 
-            for (let i = 0; i < listadata; i++) {
-                let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
+            let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
+            /*
+            listadata{
+            21/10/2024###8:rodia,
+            21/10/2024###9:tacconi,
+            21/10/2024###10:"",
+            22/10/2024###8:nobili }
+            */
+        
+           
+            for (let i = 0; i < 5; i++) {
+             let valoreorariotabella=[];
+             for(let j=0;j<key.length();j++){
+             let val=key[j].split("###");
+             if(val[1]==hours[i]){
+             valoreorariotabella=listadata[key];
+             }
+           }
+
+                let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td>"+valoreorariotabella[0]+"</td>" + "<td>"+valoreorariotabella[1]+"</td>" + "<td>"+valoreorariotabella[2]+"</td>"+ "<td>"+valoreorariotabella[3]+"</td>" + "<td>"+valoreorariotabella[4]+"</td>" + "</tr>" + "\n";
                 Row += htmlRow;
               //  console.log("ciao", Row);
             }
             parentElement.innerHTML = header + Row + "</tbody></table>"; // Aggiungi le righe alla tabella
-        },
-        aggiorna:(dizz)=>{
-            let qualcosa;
-            for(let i=0;i<qualcosa;i++){
-                let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
-                Row += htmlRow;
-            }
         }
+        
+        
     };
 }
 

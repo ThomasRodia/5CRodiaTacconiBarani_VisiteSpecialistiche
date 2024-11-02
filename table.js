@@ -16,14 +16,22 @@ const createTabella = (parentElement) => {
             parentElement.innerHTML = header;
         },
         crea: (listadata, hours) => {
-            console.log(listadata);
+            console.log("List data = "+ listadata);
             let Row = "";
+            let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome 
             for (let i = 0; i < listadata; i++) {
                 let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
                 Row += htmlRow;
-                console.log("ciao", Row);
+              //  console.log("ciao", Row);
             }
             parentElement.innerHTML = header + Row + "</tbody></table>"; // Aggiungi le righe alla tabella
+        },
+        aggiorna:(dizz)=>{
+            let qualcosa;
+            for(let i=0;i<qualcosa;i++){
+                let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
+                Row += htmlRow;
+            }
         }
     };
 }

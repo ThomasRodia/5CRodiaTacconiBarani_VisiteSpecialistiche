@@ -1,42 +1,51 @@
+// tabella.js
 
 const createTabella = (parentElement) => {
-    let data=null;
-    console.log(parentElement)
-    let header="";
+    let data = null;
+    let header = "";
     let newrow = [];
+    
+    // Funzione per mostrare o nascondere la tabella
+    const showTable = (show) => {
+        if (show) {
+            parentElement.style.display = "block";
+        } else {
+            parentElement.style.display = "none";
+        }
+    };
+    
     return {
-        build:(dati)=>{
-            data=dati;
-            
+        build: (dati) => {
+            data = dati;
         },
-        creaheader:()=>{       
+        creaheader: () => {
             header = "<table class='table' border='1'><thead>";
             header += "<th>ORE</th>";
             header += data.map(t => `<th>${t}</th>`).join("");
             header += "</thead><tbody>";
-            console.log(parentElement);
             parentElement.innerHTML = header;
         },
         crea: (listadata, hours) => {
             newrow = listadata;
-            console.log(newrow);
             let Row = "";
-            for (let i=0;i<newrow;i++) {
-                let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
+            for (let i = 0; i < newrow; i++) {
+                let htmlRow = `<tr><td>${hours[i]}</td><td></td><td></td><td></td><td></td><td></td></tr>\n`;
                 Row += htmlRow;
-                console.log("ciao",Row) 
             }
             parentElement.innerHTML = header + Row + "</tbody></table>";
-        }
-    }
-}
-console.log(document)
+        },
+        show: (shouldShow) => showTable(shouldShow)
+    };
+};
 
+// Inizializzazione della tabella con i giorni e le ore
 let table = createTabella(document.getElementById("tabelle"));
-table.build( ["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
+table.build(["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
 table.creaheader();
 let hours = ["8", "9", "10", "11", "12"];
 table.crea(5, hours);
+table.show(false);  // Nascondi la tabella inizialmente
+
 /*
 
 // Crea la tabella

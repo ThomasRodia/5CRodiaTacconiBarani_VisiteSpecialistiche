@@ -1,4 +1,3 @@
-
 const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
 const myKey = 'tesoro';
 const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
@@ -104,5 +103,3 @@ const salvaDati = (data, prenotazioni) => {
     table1.render();//fai la render della tabella
   });
 });
-
-

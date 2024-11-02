@@ -10,7 +10,7 @@ const createTabella = (parentElement) => {
         creaheader: () => {
             header = "<table class='table' border='1'><thead>";
             header += "<th>ORE</th>";
-            header += data.map(t => `<th>${t}</th>`).join(""); // Uso corretto delle template literals
+            header += data.map(t => `<th>${t}</th>`).join(""); 
             header += "</thead><tbody>";
             console.log(parentElement);
             parentElement.innerHTML = header;
@@ -18,13 +18,13 @@ const createTabella = (parentElement) => {
         crea: (listadata, hours) => {
             console.log("List data = "+ listadata);
             let Row = "";
-            let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome 
+            let key= Object.keys(listadata);
             for (let i = 0; i < listadata; i++) {
                 let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "</tr>" + "\n";
                 Row += htmlRow;
-              //  console.log("ciao", Row);
+              
             }
-            parentElement.innerHTML = header + Row + "</tbody></table>"; // Aggiungi le righe alla tabella
+            parentElement.innerHTML = header + Row + "</tbody></table>"; 
         },
         aggiorna:(dizz)=>{
             let qualcosa;
@@ -42,4 +42,4 @@ let table = createTabella(document.getElementById("tabelle"));
 table.build(["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
 table.creaheader();
 let hours = ["8", "9", "10", "11", "12"];
-table.crea(hours.length, hours); // Passa la lunghezza di hours per creare il numero corretto di righe
+table.crea(hours.length, hours); 

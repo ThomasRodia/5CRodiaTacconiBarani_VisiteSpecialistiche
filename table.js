@@ -1,3 +1,4 @@
+const get='https://ws.cipiaceinfo.it/cache/get';
 const createTabella = (parentElement) => {
     let data = null;
     console.log(parentElement);
@@ -54,6 +55,9 @@ const createTabella = (parentElement) => {
     };
 }
 
+
+
+
 console.log(document);
 
 let table = createTabella(document.getElementById("tabelle"));
@@ -88,4 +92,94 @@ let test={
     "25/10/2024###12":"Thomas",
 
 }
-table.crea(test, hours); 
+//table.crea(test, hours); 
+/*
+let chiaviCache=Object.key(valcache);
+for(let i=0;i<chiaviCache.lenght;i++){
+    for(let j=0;j<;j++){
+    if(chiavi_dizionario[j])
+    }
+}
+    */
+const prendiDati = (myKey, myToken) => {
+    return new Promise((resolve, reject) => {
+      fetch(get, {// da cambiare
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "key": myToken
+        },
+        body: JSON.stringify({
+          key: myKey
+        })
+      })
+        .then(r => r.json())
+        .then(r => {
+          const data = JSON.parse(r.result);
+          resolve(data);
+        })
+        .catch(error => reject(error));
+    });
+  }
+
+ function creaDizionarioSettimana() {
+   
+    let dizionario = {};
+    //let valcache= 
+    
+    prendiDati(myKey,myToken).then(valcache=>{////da sistemare 
+    console.info("valcache = "+valcache)
+   /* let valcache={
+        "04/11/2024###8":"Pippo",
+        "07/11/2024###11":"Pippo"
+    };
+    */
+   console.log(valcache);
+   console.info("dopo valcache")
+    let oggi = new Date();
+    let giornoSettimana = oggi.getDay();
+
+    if (giornoSettimana === 6) { 
+        oggi.setDate(oggi.getDate() + 2); 
+    } else if (giornoSettimana === 0) { 
+        oggi.setDate(oggi.getDate() + 1); 
+    } else { 
+        oggi.setDate(oggi.getDate() - (giornoSettimana - 1)); 
+    }
+
+    
+    for (let i = 0; i < 5; i++) {
+        let giorno = ("0" + oggi.getDate()).slice(-2);
+        let mese = ("0" + (oggi.getMonth() + 1)).slice(-2);
+        let anno = oggi.getFullYear();
+        let data = `${giorno}/${mese}/${anno}`;
+
+        for (let ora = 8; ora <= 12; ora++) {
+            let chiave = `${data}###${ora}`;
+            dizionario[chiave] = "";
+        }
+
+        
+        oggi.setDate(oggi.getDate() + 1);
+    }
+
+
+    for (let chiave in valcache) {
+        
+        if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
+            
+            dizionario[chiave] = valcache[chiave];
+        }
+    }
+
+console.log("prim dizz");    
+console.log (dizionario);
+console.log ("dopo dizz");
+    return dizionario;
+});
+}
+
+let testa =creaDizionarioSettimana();
+console.log( testa);
+
+table.crea(testa, hours); 

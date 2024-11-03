@@ -1,10 +1,10 @@
 console.log("main.js è stato caricato correttamente");
 
-const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
-const myKey = 'tesoro';
+const myToken = '63ae5888-947a-49cd-a85e-21a658ddab9e';
+const myKey = 'visite';
 const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
-const set ='http://ws.progettimolinari.it/cache/set';
-const get='http://ws.progettimolinari.it/cache/get';
+const set ='https://ws.cipiaceinfo.it/cache/sett';
+//const get='https://ws.cipiaceinfo.it/cache/get';
 informazioni={}// dove mettere tutte le info @thomas rodia
 
 
@@ -20,13 +20,13 @@ return 1;
 }
 
 
-const salvaDati = (data, prenotazioni) => {
+const salvaDati = (dataeOra, prenotazioniNome) => {
     return new Promise((resolve, reject) => {
       prendiDati(myKey, myToken)// prima di salvare i nuovi dati prendi i veccchi dati 
         .then(vecchiDati => {
           const nuoviDati = {
             ...vecchiDati,
-            [data]: prenotazioni
+            [dataeOra]: prenotazioniNome
           };
 
 
@@ -54,9 +54,9 @@ const salvaDati = (data, prenotazioni) => {
   
   
   
+  /*
   
-  
-  const prendiDati = (myKey, myToken) => {
+   const prendiDati = (myKey, myToken) => {
     return new Promise((resolve, reject) => {
       fetch(get, {// da cambiare
         method: "POST",
@@ -76,7 +76,7 @@ const salvaDati = (data, prenotazioni) => {
         .catch(error => reject(error));
     });
   }
-
+*/
 
 
 // quando la form viene compilata 

@@ -1,196 +1,109 @@
+console.log("main.js è stato caricato correttamente");
 
-const myToken = '4b85f2ba-f4e9-4ad7-8b80-562030ac3c33';
-const myKey = 'tesoro';
-
-
-
-
-
-////////
-
+const myToken = '63ae5888-947a-49cd-a85e-21a658ddab9e';
+const myKey = 'visite';
+const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
+const set ='https://ws.cipiaceinfo.it/cache/sett';
+//const get='https://ws.cipiaceinfo.it/cache/get';
+informazioni={}// dove mettere tutte le info @thomas rodia
 
 
-
-/*
-const struttura_albergo = {
-  data: 10,
-  Nominativo: 5
-}
-
-let informazioni = {};
-
-function sottraiArray(arr1, arr2) {
-  return arr1.map((num, index) => num - arr2[index]);
-}
-
-function positivo(arr) {
-  return arr.every(num => num >= 0);
+const prenota=(dati,noinativo)=>{//dati presi dalla form es=>Data###Orario###Tipo Di Visita###Nome
+ let data=dati.split("###");
+ if(informazioni[dati]===null){
+    return -1;
+ }else{
+informazioni[dati]=nominativo;
+table.render();
+return 1;
+ }
 }
 
 
+const salvaDati = (dataeOra, prenotazioniNome) => {
+    return new Promise((resolve, reject) => {
+      prendiDati(myKey, myToken)// prima di salvare i nuovi dati prendi i veccchi dati 
+        .then(vecchiDati => {
+          const nuoviDati = {
+            ...vecchiDati,
+            [dataeOra]: prenotazioniNome
+          };
 
 
-
-
-function controllaCamere(dati) {
-  let key = Object.keys(struttura_albergo);
-  let info = dati.split(",");
-  if (informazioni[info[0]] == ! null) {
-    if (
-      informazioni[info[0]][key[0]] > info[1] &&
-      informazioni[info[0]][key[1]] > info[2] &&
-      informazioni[info[0]][key[2]] > info[3]) {
-      informazioni[info[0]][key[1]] -= info[1];
-      informazioni[info[0]][key[2]] -= info[2];
-      informazioni[info[0]][key[3]] -= info[3];
-    } else {
-      console.log("Impossibile effettuare prenotazione")
-    }
-  } else {
-    informazioni[info[0]] = struttura_albergo;
-    controllacamere(dati);
-  }
-};
-
-function render() {
-  camera_singola_input.value = "";
-  camera_doppia_input.value = "";
-  camera_suit_input.value = "";
-
-  let key = Object.keys(struttura_albergo);
-  let chiavi = Object.keys(informazioni);
-  let size = chiavi.length;
-  let tab = [["Date", key[0], key[1], key[3]]]
-
-  for (let i = 0; i < size; i++) {
-    let arr = [chiavi[i], informazioni[chiavi[i]][key[0]], informazioni[chiavi[i]][key[1]], informazioni[chiavi[i]][key[2]]]
-    tab.push(arr);
-  }
-
-  table1.build(tab);
-  table1.rendert();
-}
-
-
-
-
-
-
-
-
-
-const creaBase = () => {
-  let tipiStanze = { "Data": "date" };
-  Object.keys(struttura_albergo).forEach(e => tipiStanze[e] = "text");
-  return tipiStanze;
-}
-
-
-
-
-
-
-
-
-const table1 = createTable(document.getElementById('tabella'));
-const response = document.getElementById("response");
-const booker = createForm(document.getElementById("book"));
-
-booker.onsubmit((values) => {
-
-  let available = Object.values(struttura_albergo);
-
-  // Controlla che nn ci siano gia prenotazioni nella cache
-  prendiDati(myKey, myToken)
-    .then(data => {
-      const key = values[0];
-      if (data[key]) {
-        available = data[key];
-      }
-      const arrayDiff = sottraiArray(available, values.slice(1));
-      console.log(arrayDiff);
-
-      if (positivo(arrayDiff)) {
-        response.innerHTML = "ok";
-        salvaDati(values[0], arrayDiff).then(() => {
-          initTable().then(tableStructure => {
-            table1.build(tableStructure);
-            table1.render();
-          });
-        });
-      } else {
-        response.innerHTML = "ko";
-      };
-    }).then(() => {
-      table1.render();
-    });
-
-});
-
-
-const salvaDati = (data, camere) => {
-  return new Promise((resolve, reject) => {
-    prendiDati(myKey, myToken)
-      .then(vecchiDati => {
-        const nuoviDati = {
-          ...vecchiDati,
-          [data]: camere
-        };
-        fetch('http://ws.progettimolinari.it/cache/set', {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            "key": myToken
-          },
-          body: JSON.stringify({
-            key: myKey,
-            value: JSON.stringify(nuoviDati)
+          // a questo punto metti sulla cache i nuovi dati 
+          fetch(set, {//Da cambiare url 
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "key": myToken
+            },
+            body: JSON.stringify({
+              key: myKey,
+              value: JSON.stringify(nuoviDati)
+            })
           })
+            .then(r => r.json())
+            .then(result => {
+              resolve(result);
+            })
+            .catch(error => reject(error));
         })
-          .then(r => r.json())
-          .then(result => {
-            resolve(result);
-          })
-          .catch(error => reject(error));
+        .catch(error => reject(error));
+    });
+  }
+  
+  
+  
+  /*
+  
+   const prendiDati = (myKey, myToken) => {
+    return new Promise((resolve, reject) => {
+      fetch(get, {// da cambiare
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "key": myToken
+        },
+        body: JSON.stringify({
+          key: myKey
+        })
       })
-      .catch(error => reject(error));
+        .then(r => r.json())
+        .then(r => {
+          const data = JSON.parse(r.result);
+          resolve(data);
+        })
+        .catch(error => reject(error));
+    });
+  }
+*/
+
+
+// quando la form viene compilata 
+  booker.onsubmit((values) => {
+  prendiDati(myKey, myToken)// prendi i dati dalla cache
+  .then(data => {
+    const key = values[0];//prendi la chiave
+    if (data[key]) {
+      available = data[key];
+    }
+    const arrayDiff = sottraiArray(available, values.slice(1));
+    console.log(arrayDiff);
+//da capire cosa fa
+    if (positivo(arrayDiff)) {
+      response.innerHTML = "ok";
+      salvaDati(values[0], arrayDiff).then(() => {
+        initTable().then(tableStructure => {
+          table1.build(tableStructure);
+          table1.render();
+        });
+      });
+    } else {
+      response.innerHTML = "ko";// dai errore
+    };
+  }).then(() => {
+    table1.render();//fai la render della tabella
   });
-}
-
-
-
-
-
-const prendiDati = (myKey, myToken) => {
-  return new Promise((resolve, reject) => {
-    fetch('http://ws.progettimolinari.it/cache/get', {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "key": myToken
-      },
-      body: JSON.stringify({
-        key: myKey
-      })
-    })
-      .then(r => r.json())
-      .then(r => {
-        const data = JSON.parse(r.result);
-        resolve(data);
-      })
-      .catch(error => reject(error));
-  });
-}
-
-booker.setLabels(creaBase());
-booker.render();
-
-
-initTable().then(tableStructure => {
-  table1.build(tableStructure);
-  table1.render();
-
 });
 
-*/
-// -----------------------------------------------------------------------------------------------
+

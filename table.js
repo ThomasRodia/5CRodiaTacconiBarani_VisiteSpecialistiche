@@ -20,13 +20,8 @@ const createTabella = (parentElement) => {
             console.log("List data = ");
             console.log(listadata);
             let Row = "";
-<<<<<<< HEAD
             let key = Object.keys(listadata); // ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
 
-=======
-            let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
-        
->>>>>>> cd06454ba0d996d659224cf721a503f0c7b23259
             for (let i = 0; i < 5; i++) {
                 let valoreorariotabella = [];
                 for (let j = 0; j < key.length; j++) {
@@ -50,7 +45,6 @@ const createTabella = (parentElement) => {
 console.log(document);
 
 let table = createTabella(document.getElementById("tabelle"));
-<<<<<<< HEAD
 
 // Funzione per ottenere la data della settimana corrente
 const getDatesForWeek = (startDate) => {
@@ -100,13 +94,6 @@ let test = {
     "25/10/2024###11": "Thomas",
     "25/10/2024###12": "Thomas",
 };
-=======
-table.build(["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
-table.creaheader();
-let hours = ["8", "9", "10", "11", "12"];
-
-//table.crea(test, hours); 
->>>>>>> cd06454ba0d996d659224cf721a503f0c7b23259
 
 const prendiDati = (myKey, myToken) => {
     return new Promise((resolve, reject) => {
@@ -129,7 +116,6 @@ const prendiDati = (myKey, myToken) => {
     });
 };
 
-<<<<<<< HEAD
 async function creaDizionarioSettimana() {
     let valcache;
     try {
@@ -141,23 +127,6 @@ async function creaDizionarioSettimana() {
     
     let dizionario = {};
     console.info("valcache = " + valcache);
-=======
-  async function creaDizionarioSettimana() {
-let valcache
-try {
-     valcache = await prendiDati(myKey, myToken);
-    console.log("Valcache aggiornato:", valcache);
-    
-} catch (error) {
-    console.error("Errore durante il recupero dei dati:", error);
-}
-        let dizionario = {};
-
-    console.info("valcache = "+valcache);
-    console.log(valcache);
-    console.info("dopo valcache");
-
->>>>>>> cd06454ba0d996d659224cf721a503f0c7b23259
     let oggi = new Date();
     let giornoSettimana = oggi.getDay();
 
@@ -179,10 +148,6 @@ try {
             let chiave = `${data}###${ora}`;
             dizionario[chiave] = "";
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> cd06454ba0d996d659224cf721a503f0c7b23259
         oggi.setDate(oggi.getDate() + 1);
     }
 
@@ -192,7 +157,6 @@ try {
         }
     }
 
-<<<<<<< HEAD
     console.log("prim dizz");    
     console.log(dizionario);
     console.log("dopo dizz");
@@ -205,11 +169,5 @@ async function main() {
     console.log(testa);
     console.log("dopo testa");
     table.crea(testa, hours); 
-=======
-console.log("prim dizz");    
-console.log (dizionario);
-console.log ("dopo dizz");
-    return dizionario;//rileva
->>>>>>> cd06454ba0d996d659224cf721a503f0c7b23259
 }
 main();

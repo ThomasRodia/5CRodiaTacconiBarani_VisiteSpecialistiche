@@ -8,6 +8,14 @@ const specialties = {
   neurology: "Neurologia"
 };
 
+const tableDataBySpecialty = {
+  cardiology: {},
+  psychology: {},
+  oncology: {},
+  orthopedics: {},
+  neurology: {}
+};
+
 const createSpecialtyTabs = (parentElement) => {
   let activeIndex = 2; 
   return {
@@ -16,6 +24,7 @@ const createSpecialtyTabs = (parentElement) => {
         let buttonClass = 'specialty-tab';
         if (index === activeIndex) {
           buttonClass += ' active';
+          console.log("Prova"); 
         }
         return `<button class="${buttonClass}" onclick="specialtyTabs.setActive(${index})">
           ${specialties[key]}
@@ -28,10 +37,14 @@ const createSpecialtyTabs = (parentElement) => {
     setActive: function(index) {
       activeIndex = index;
       this.render();
+    },
+    setTableForActiveSpecialty: async function() {
+      const activeSpecialtyKey = Object.keys(specialties)[activeIndex];
+      const specialtyData = await creaDizionarioSettimana(activeSpecialtyKey); // Ottieni i dati specifici
+      table.crea(specialtyData, hours); 
     }
   };
 };
-
 
 const createBookButton = (parentElement) => {
   return {
@@ -48,7 +61,6 @@ const createBookButton = (parentElement) => {
     }
   };
 };
-
 
 const specialtyTabs = createSpecialtyTabs(document.getElementById("specialty-tabs"));
 const bookButton = createBookButton(document.getElementById("controls"));

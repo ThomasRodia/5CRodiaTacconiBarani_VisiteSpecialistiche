@@ -122,12 +122,23 @@ const prendiDati = (myKey, myToken) => {
     });
   }
 
- function creaDizionarioSettimana() {
+  async function creaDizionarioSettimana() {
    
-    let dizionario = {};
-    //let valcache= 
+    //let dizionario = {};
+    /*let valcache= prendiDati(myKey,myToken).then(dati=>{
+        
+        return dati;});////da sistemare 
+
+*/
+let valcache
+try {
+     valcache = await prendiDati(myKey, myToken);
+    console.log("Valcache aggiornato:", valcache);
     
-    prendiDati(myKey,myToken).then(valcache=>{////da sistemare 
+} catch (error) {
+    console.error("Errore durante il recupero dei dati:", error);
+}
+        let dizionario = {};
     console.info("valcache = "+valcache)
    /* let valcache={
         "04/11/2024###8":"Pippo",
@@ -175,13 +186,14 @@ const prendiDati = (myKey, myToken) => {
 console.log("prim dizz");    
 console.log (dizionario);
 console.log ("dopo dizz");
-    return dizionario;
-});
-return dizionario;
-}
+    return dizionario;//rileva
 
-let testa =creaDizionarioSettimana();
+}
+async function main(){
+let testa = await creaDizionarioSettimana();
 console.log("prima testa");
 console.log( testa);
 console.log("dopo testa");
 table.crea(testa, hours); 
+}
+main();

@@ -17,7 +17,7 @@ const createTabella = (parentElement) => {
            // console.log(parentElement);
             parentElement.innerHTML = header;
         },
-        crea: (listadata, hours,type) => {
+        crea: (listadata, hours, type) => {
             //console.log("List data = ");
             console.log(listadata);
             let Row = "";
@@ -27,10 +27,10 @@ const createTabella = (parentElement) => {
                 let valoreorariotabella = [];
                 for (let j = 0; j < key.length; j++) {
                     let val = key[j].split("###");
-                    if(val===type){
+                    if(val[2]===type){
                     if (val[1] == hours[i]) {
-                        console.log("chiave = " + key[j]);
-                        console.log("list data di key = " + listadata[key[j]]);
+                       // console.log("chiave = " + key[j]);
+                       // console.log("list data di key = " + listadata[key[j]]);
                         valoreorariotabella.push(listadata[key[j]]);
                     }
                 }
@@ -175,6 +175,11 @@ async function creaDizionarioSettimana( dizz) {
         }
         oggi.setDate(oggi.getDate() + 1);
     }
+    valcache=
+        {"04/11/2024###8###Ortopedia":"Simone",
+            "05/11/2024###12###Neurologia":"Thomas",
+            "06/11/2024###12###Oncologia":"barani"}
+    
 if(valcache!==null){
     for (let chiave in valcache) {
         
@@ -230,6 +235,7 @@ async function main() {
   //  console.log("prima testa");
   //  console.log(testa);
   //  console.log("dopo testa");
-    table.crea(testa, hours,"Oncologia"); 
+    //table.crea(testa, hours,"Oncologia"); 
 }
 main();
+

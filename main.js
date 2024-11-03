@@ -2,7 +2,7 @@ console.log("main.js è stato caricato correttamente");
 
 const myToken = '63ae5888-947a-49cd-a85e-21a658ddab9e';
 const myKey = 'visite';
-const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
+//const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
 const set ='https://ws.cipiaceinfo.it/cache/sett';
 //const get='https://ws.cipiaceinfo.it/cache/get';
 informazioni={}// dove mettere tutte le info @thomas rodia
@@ -76,7 +76,7 @@ const salvaDati = (dataeOra, prenotazioniNome) => {
         .catch(error => reject(error));
     });
   }
-*/
+
 
 
 // quando la form viene compilata 
@@ -105,5 +105,5 @@ const salvaDati = (dataeOra, prenotazioniNome) => {
     table1.render();//fai la render della tabella
   });
 });
-
+*/
 

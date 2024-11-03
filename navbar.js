@@ -1,19 +1,19 @@
 
 
 const specialties = {
-  cardiology: "Cardiologia",
-  psychology: "Psicologia",
-  oncology: "Oncologia",
-  orthopedics: "Ortopedia",
-  neurology: "Neurologia"
+  "Cardiologia": "",
+  "Psicologia": "",
+  "Oncologia": "",
+  "Ortopedia": "",
+  "Neurologia": ""
 };
 
 const tableDataBySpecialty = {
-  cardiology: {},
-  psychology: {},
-  oncology: {},
-  orthopedics: {},
-  neurology: {}
+  cardiology: "",
+  psychology: "",
+  oncology: "",
+  orthopedics: "",
+  neurology: ""
 };
 
 const createSpecialtyTabs = (parentElement) => {
@@ -26,25 +26,32 @@ const createSpecialtyTabs = (parentElement) => {
           buttonClass += ' active';
           console.log("Prova"); 
         }
-        return `<button class="${buttonClass}" onclick="specialtyTabs.setActive(${index})">
-          ${specialties[key]}
+        
+        return `<button class="${buttonClass}" onclick="specialtyTabs.setTableForActiveSpecialty('${key}')">
+          ${key}
         </button>`;
       }).join('');
     },
     render: function() {
       parentElement.innerHTML = this.build();
+      this.setTableForActiveSpecialty;
     },
-    setActive: function(index) {
+    
+    setTableForActiveSpecialty: async function(index) {
       activeIndex = index;
-      this.render();
-    },
-    setTableForActiveSpecialty: async function() {
-      const activeSpecialtyKey = Object.keys(specialties)[activeIndex];
-      const specialtyData = await creaDizionarioSettimana(activeSpecialtyKey); // Ottieni i dati specifici
-      table.crea(specialtyData, hours); 
+      
+      //const activeSpecialtyKey = Object.keys(specialties)[activeIndex];
+      let specialtyData = await creaDizionarioSettimana(specialties); // Ottieni i dati specifici
+     console.log("specialtyData" +specialtyData);
+     console.info(hours);
+      table.crea(specialtyData, hours,index); 
+      
     }
   };
 };
+
+
+
 
 const createBookButton = (parentElement) => {
   return {
@@ -66,6 +73,8 @@ const specialtyTabs = createSpecialtyTabs(document.getElementById("specialty-tab
 const bookButton = createBookButton(document.getElementById("controls"));
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  specialtyTabs.setTableForActiveSpecialty("Oncologia");
   specialtyTabs.render();
   bookButton.render();
 });

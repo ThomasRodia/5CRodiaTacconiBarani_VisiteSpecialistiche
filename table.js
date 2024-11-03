@@ -1,4 +1,5 @@
 const get = 'https://ws.cipiaceinfo.it/cache/get';
+
 const createTabella = (parentElement) => {
     let data = null;
     console.log(parentElement);
@@ -13,11 +14,11 @@ const createTabella = (parentElement) => {
             header += "<th>ORE</th>";
             header += data.map(t => `<th>${t}</th>`).join(""); 
             header += "</thead><tbody>";
-            console.log(parentElement);
+           // console.log(parentElement);
             parentElement.innerHTML = header;
         },
-        crea: (listadata, hours,) => {
-            console.log("List data = ");
+        crea: (listadata, hours,type) => {
+            //console.log("List data = ");
             console.log(listadata);
             let Row = "";
             let key = Object.keys(listadata); // ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
@@ -26,14 +27,16 @@ const createTabella = (parentElement) => {
                 let valoreorariotabella = [];
                 for (let j = 0; j < key.length; j++) {
                     let val = key[j].split("###");
+                    if(val===type){
                     if (val[1] == hours[i]) {
                         console.log("chiave = " + key[j]);
                         console.log("list data di key = " + listadata[key[j]]);
                         valoreorariotabella.push(listadata[key[j]]);
                     }
                 }
-                console.log(hours);
-                console.log(valoreorariotabella);
+                }
+               // console.log(hours);
+                console.log("riga ="+valoreorariotabella);
                 let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td>" + (valoreorariotabella[0] || "") + "</td>" + "<td>" + (valoreorariotabella[1] || "") + "</td>" + "<td>" + (valoreorariotabella[2] || "") + "</td>" + "<td>" + (valoreorariotabella[3] || "") + "</td>" + "<td>" + (valoreorariotabella[4] || "") + "</td>" + "</tr>" + "\n";
                 Row += htmlRow;
             }
@@ -42,7 +45,7 @@ const createTabella = (parentElement) => {
     };
 }
 
-console.log(document);
+//console.log(document);
 
 let table = createTabella(document.getElementById("tabelle"));
 
@@ -67,34 +70,7 @@ table.build(weekDates);
 table.creaheader();
 
 let hours = ["8", "9", "10", "11", "12"];
-let test={
-    "21/10/2024###8":"Thomas",
-    "21/10/2024###9":"Thomas",
-    "21/10/2024###10":"Thomas",
-    "21/10/2024###11":"Thomas",
-    "21/10/2024###12":"Thomas",
-    "22/10/2024###8":"Thomas",
-    "22/10/2024###9":"Thomas",
-    "22/10/2024###10":"Thomas",
-    "22/10/2024###11":"Thomas",
-    "22/10/2024###12":"Thomas",
-    "23/10/2024###8":"Thomas",
-    "23/10/2024###9":"Thomas",
-    "23/10/2024###10":"Thomas",
-    "23/10/2024###11":"Thomas",
-    "23/10/2024###12":"Thomas",
-    "24/10/2024###8":"Thomas",
-    "24/10/2024###9":"Thomas",
-    "24/10/2024###10":"Thomas",
-    "24/10/2024###11":"Thomas",
-    "24/10/2024###12":"Thomas",
-    "25/10/2024###8":"Thomas",
-    "25/10/2024###9":"Thomas",
-    "25/10/2024###10":"Thomas",
-    "25/10/2024###11":"Thomas",
-    "25/10/2024###12":"Thomas",
 
-}
 //table.crea(test, hours); 
 /*
 let chiaviCache=Object.key(valcache);
@@ -104,6 +80,21 @@ for(let i=0;i<chiaviCache.lenght;i++){
     }
 }
     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const prendiDati = (myKey, myToken) => {
     return new Promise((resolve, reject) => {
         fetch(get, {
@@ -125,6 +116,22 @@ const prendiDati = (myKey, myToken) => {
     });
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function creaDizionarioSettimana( dizz) {
     let valcache;
     try {
@@ -135,7 +142,8 @@ async function creaDizionarioSettimana( dizz) {
     }
     
     let dizionario = {};
-    console.info("valcache = " + valcache);
+    //console.info("valcache = " + valcache);
+    console.log(valcache);
     let oggi = new Date();
     let giornoSettimana = oggi.getDay();
 
@@ -154,32 +162,74 @@ async function creaDizionarioSettimana( dizz) {
         let data = `${giorno}/${mese}/${anno}`;
 
         for (let ora = 8; ora <= 12; ora++) {
+            //console.info(dizz);
             let key=Object.keys(dizz);
-            for(let specializzazione=0;specializzazione<key.lenght;specializzazione++){
-                        let chiave = `${data}###${ora}###${Object.key(dizz)[specializzazione]}`;
+           // console.info("lunghezza "+key.length);
+            for(let specializzazione=0;specializzazione<key.length;specializzazione++){
+                
+            //  console.info(key[specializzazione]);
+                let chiave = `${data}###${ora}###${key[specializzazione]}`;
+                dizionario[chiave] = "";
             }
-            dizionario[chiave] = "";
+            
         }
         oggi.setDate(oggi.getDate() + 1);
     }
-
+if(valcache!==null){
     for (let chiave in valcache) {
+        
         if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
             dizionario[chiave] = valcache[chiave];
         }
     }
+}
 
-    console.log("prim dizz");    
-    console.log(dizionario);
-    console.log("dopo dizz");
+   // console.log("prim dizz");    
+    //console.log(dizionario);
+    //console.log("dopo dizz");
     return dizionario; // rileva
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function main() {
-    let testa = await creaDizionarioSettimana();
-    console.log("prima testa");
-    console.log(testa);
-    console.log("dopo testa");
-    table.crea(testa, hours); 
+    
+    let testa = await creaDizionarioSettimana({"Cardiologia":"",
+        "Psicologia":"",
+        "Oncologia":"", 
+        "Ortopedia":"",
+        "Neurologia":""
+     });
+  //  console.log("prima testa");
+  //  console.log(testa);
+  //  console.log("dopo testa");
+    table.crea(testa, hours,"Oncologia"); 
 }
 main();

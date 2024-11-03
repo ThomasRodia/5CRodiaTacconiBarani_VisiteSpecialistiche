@@ -45,6 +45,7 @@ const createTabella = (parentElement) => {
            }
            console.log(hours);
            console.log(valoreorariotabella);
+           console.log("ciao");
                 let htmlRow = "<tr><td>" + hours[i] + "</td>" + "<td>"+valoreorariotabella[0]+"</td>" + "<td>"+valoreorariotabella[1]+"</td>" + "<td>"+valoreorariotabella[2]+"</td>"+ "<td>"+valoreorariotabella[3]+"</td>" + "<td>"+valoreorariotabella[4]+"</td>" + "</tr>" + "\n";
                 Row += htmlRow;
               

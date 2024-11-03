@@ -177,9 +177,11 @@ console.log (dizionario);
 console.log ("dopo dizz");
     return dizionario;
 });
+return dizionario;
 }
 
 let testa =creaDizionarioSettimana();
+console.log("prima testa");
 console.log( testa);
-
+console.log("dopo testa");
 table.crea(testa, hours); 

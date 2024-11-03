@@ -21,15 +21,7 @@ const createTabella = (parentElement) => {
             console.log(listadata);
             let Row = "";
             let key= Object.keys(listadata);//ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
-            /*
-            listadata{
-            21/10/2024###8:rodia,
-            21/10/2024###9:tacconi,
-            21/10/2024###10:"",
-            22/10/2024###8:nobili }
-            */
         
-           
             for (let i = 0; i < 5; i++) {
              let valoreorariotabella=[];
              for(let j=0;j<key.length;j++){
@@ -65,43 +57,9 @@ let table = createTabella(document.getElementById("tabelle"));
 table.build(["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
 table.creaheader();
 let hours = ["8", "9", "10", "11", "12"];
-let test={
-    "21/10/2024###8":"Thomas",
-    "21/10/2024###9":"Thomas",
-    "21/10/2024###10":"Thomas",
-    "21/10/2024###11":"Thomas",
-    "21/10/2024###12":"Thomas",
-    "22/10/2024###8":"Thomas",
-    "22/10/2024###9":"Thomas",
-    "22/10/2024###10":"Thomas",
-    "22/10/2024###11":"Thomas",
-    "22/10/2024###12":"Thomas",
-    "23/10/2024###8":"Thomas",
-    "23/10/2024###9":"Thomas",
-    "23/10/2024###10":"Thomas",
-    "23/10/2024###11":"Thomas",
-    "23/10/2024###12":"Thomas",
-    "24/10/2024###8":"Thomas",
-    "24/10/2024###9":"Thomas",
-    "24/10/2024###10":"Thomas",
-    "24/10/2024###11":"Thomas",
-    "24/10/2024###12":"Thomas",
-    "25/10/2024###8":"Thomas",
-    "25/10/2024###9":"Thomas",
-    "25/10/2024###10":"Thomas",
-    "25/10/2024###11":"Thomas",
-    "25/10/2024###12":"Thomas",
 
-}
 //table.crea(test, hours); 
-/*
-let chiaviCache=Object.key(valcache);
-for(let i=0;i<chiaviCache.lenght;i++){
-    for(let j=0;j<;j++){
-    if(chiavi_dizionario[j])
-    }
-}
-    */
+
 const prendiDati = (myKey, myToken) => {
     return new Promise((resolve, reject) => {
       fetch(get, {// da cambiare
@@ -124,13 +82,6 @@ const prendiDati = (myKey, myToken) => {
   }
 
   async function creaDizionarioSettimana() {
-   
-    //let dizionario = {};
-    /*let valcache= prendiDati(myKey,myToken).then(dati=>{
-        
-        return dati;});////da sistemare 
-
-*/
 let valcache
 try {
      valcache = await prendiDati(myKey, myToken);
@@ -140,14 +91,11 @@ try {
     console.error("Errore durante il recupero dei dati:", error);
 }
         let dizionario = {};
-    console.info("valcache = "+valcache)
-   /* let valcache={
-        "04/11/2024###8":"Pippo",
-        "07/11/2024###11":"Pippo"
-    };
-    */
-   console.log(valcache);
-   console.info("dopo valcache")
+
+    console.info("valcache = "+valcache);
+    console.log(valcache);
+    console.info("dopo valcache");
+
     let oggi = new Date();
     let giornoSettimana = oggi.getDay();
 
@@ -170,8 +118,6 @@ try {
             let chiave = `${data}###${ora}`;
             dizionario[chiave] = "";
         }
-
-        
         oggi.setDate(oggi.getDate() + 1);
     }
 
@@ -188,7 +134,6 @@ console.log("prim dizz");
 console.log (dizionario);
 console.log ("dopo dizz");
     return dizionario;//rileva
-
 }
 async function main(){
 let testa = await creaDizionarioSettimana();

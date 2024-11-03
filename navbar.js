@@ -9,7 +9,7 @@ const specialties = {
   
   
   const createSpecialtyTabs = (parentElement) => {
-    let activeIndex = 2; 
+    let activeIndex = 2; // L'indice del tab attivo iniziale
     return {
       build: () => {
         return Object.keys(specialties).map((key, index) => {

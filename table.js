@@ -16,7 +16,7 @@ const createTabella = (parentElement) => {
             console.log(parentElement);
             parentElement.innerHTML = header;
         },
-        crea: (listadata, hours) => {
+        crea: (listadata, hours,) => {
             console.log("List data = ");
             console.log(listadata);
             let Row = "";
@@ -65,43 +65,6 @@ let table = createTabella(document.getElementById("tabelle"));
 table.build(["LUNEDÌ", "MARTEDÌ", "MERCOLEDÌ", "GIOVEDÌ", "VENERDÌ"]);
 table.creaheader();
 let hours = ["8", "9", "10", "11", "12"];
-let test={
-    "21/10/2024###8":"Thomas",
-    "21/10/2024###9":"Thomas",
-    "21/10/2024###10":"Thomas",
-    "21/10/2024###11":"Thomas",
-    "21/10/2024###12":"Thomas",
-    "22/10/2024###8":"Thomas",
-    "22/10/2024###9":"Thomas",
-    "22/10/2024###10":"Thomas",
-    "22/10/2024###11":"Thomas",
-    "22/10/2024###12":"Thomas",
-    "23/10/2024###8":"Thomas",
-    "23/10/2024###9":"Thomas",
-    "23/10/2024###10":"Thomas",
-    "23/10/2024###11":"Thomas",
-    "23/10/2024###12":"Thomas",
-    "24/10/2024###8":"Thomas",
-    "24/10/2024###9":"Thomas",
-    "24/10/2024###10":"Thomas",
-    "24/10/2024###11":"Thomas",
-    "24/10/2024###12":"Thomas",
-    "25/10/2024###8":"Thomas",
-    "25/10/2024###9":"Thomas",
-    "25/10/2024###10":"Thomas",
-    "25/10/2024###11":"Thomas",
-    "25/10/2024###12":"Thomas",
-
-}
-//table.crea(test, hours); 
-/*
-let chiaviCache=Object.key(valcache);
-for(let i=0;i<chiaviCache.lenght;i++){
-    for(let j=0;j<;j++){
-    if(chiavi_dizionario[j])
-    }
-}
-    */
 const prendiDati = (myKey, myToken) => {
     return new Promise((resolve, reject) => {
       fetch(get, {// da cambiare
@@ -123,7 +86,7 @@ const prendiDati = (myKey, myToken) => {
     });
   }
 
-  async function creaDizionarioSettimana() {
+  async function creaDizionarioSettimana( dizz) {
    
     //let dizionario = {};
     /*let valcache= prendiDati(myKey,myToken).then(dati=>{
@@ -167,7 +130,10 @@ try {
         let data = `${giorno}/${mese}/${anno}`;
 
         for (let ora = 8; ora <= 12; ora++) {
-            let chiave = `${data}###${ora}`;
+            let key=Object.keys(dizz);
+            for(let specializzazione=0;specializzazione<key.lenght;specializzazione++){
+                        let chiave = `${data}###${ora}###${Object.key(dizz)[specializzazione]}`;
+            }
             dizionario[chiave] = "";
         }
 
@@ -191,6 +157,11 @@ console.log ("dopo dizz");
 
 }
 async function main(){
+    const dizionarioDiPartenza = {
+        "oncologia": "",
+        "pediatria": "",
+        "radiologia":""
+    };
 let testa = await creaDizionarioSettimana();
 console.log("prima testa");
 console.log( testa);

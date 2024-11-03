@@ -175,6 +175,8 @@ async function creaDizionarioSettimana( dizz) {
         }
         oggi.setDate(oggi.getDate() + 1);
     }
+
+    // la cache non va 
     valcache=
         {"04/11/2024###8###Ortopedia":"Simone",
             "05/11/2024###12###Neurologia":"Thomas",

@@ -50,7 +50,9 @@ function createBookingModal() {
   document.getElementById("bookingForm").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault(); // Previene il comportamento predefinito del form
+
       handleBookingSubmit();
+      salvaEControllaDati();
     }
   });
 }
@@ -70,8 +72,34 @@ function handleBookingSubmit() {
     appointmentCache[dateKey] = {};
   }
   appointmentCache[dateKey][time] = patientName;
-
+  conole.log("appointmentCache");
+conole.log(appointmentCache);
   $('#bookingModal').modal('hide'); 
   document.getElementById("bookingForm").reset(); 
   renderWeeklySchedule(); 
+}
+async function salvaEControllaDati(){
+  const date = document.getElementById("appointmentDate").value;
+  const time = document.getElementById("appointmentTime").value;
+  const patientName = document.getElementById("patientName").value;
+
+  let chiavedaAggiungere=date+"###"+time+"###"+Tipologia;
+  let valcache;
+  try {
+      valcache = await prendiDati(myKey, myToken);
+      console.log("Valcache aggiornato:", valcache);
+  } catch (error) {
+      console.error("Errore durante il recupero dei dati:", error);
+  }
+  for (let chiave in valcache) {
+        
+    if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
+      alert("il posto non è libero");
+      document.getElementById("appointmentDate").value="";
+      document.getElementById("appointmentTime").value="";
+      return; 
+    }else{salvaDati(chiavedaAggiungere,patientName);}
+}
+
+
 }

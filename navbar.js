@@ -39,7 +39,7 @@ const createSpecialtyTabs = (parentElement) => {
     
     setTableForActiveSpecialty: async function(index) {
       activeIndex = index;
-      
+      Tipologia=index;
       //const activeSpecialtyKey = Object.keys(specialties)[activeIndex];
       let specialtyData = await creaDizionarioSettimana(specialties); // Ottieni i dati specifici
      console.log("specialtyData" +specialtyData);

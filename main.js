@@ -1,5 +1,5 @@
 console.log("main.js è stato caricato correttamente");
-
+let Tipologia=null;
 const myToken = '63ae5888-947a-49cd-a85e-21a658ddab9e';
 const myKey = 'visite';
 //const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 

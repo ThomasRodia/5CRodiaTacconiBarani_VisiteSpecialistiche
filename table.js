@@ -18,11 +18,11 @@ const createTabella = (parentElement) => {
             parentElement.innerHTML = header;
         },
         crea: (listadata, hours, type) => {
-            //console.log("List data = ");
-            console.log(listadata);
+            
             let Row = "";
             let key = Object.keys(listadata); // ottieni le chiavi del dizionario che dovrà essere formato da data###ora###nome
-
+            console.log("List data = ");
+            console.log(listadata);
             for (let i = 0; i < 5; i++) {
                 let valoreorariotabella = [];
                 for (let j = 0; j < key.length; j++) {
@@ -132,70 +132,55 @@ const prendiDati = (myKey, myToken) => {
 
 
 
-async function creaDizionarioSettimana( dizz) {
-    let valcache;
-    try {
-        valcache = await prendiDati(myKey, myToken);
-        console.log("Valcache aggiornato:", valcache);
-    } catch (error) {
-        console.error("Errore durante il recupero dei dati:", error);
-    }
-    
-    let dizionario = {};
-    //console.info("valcache = " + valcache);
-    console.log(valcache);
-    let oggi = new Date();
-    let giornoSettimana = oggi.getDay();
-
-    if (giornoSettimana === 6) { 
-        oggi.setDate(oggi.getDate() + 2); 
-    } else if (giornoSettimana === 0) { 
-        oggi.setDate(oggi.getDate() + 1); 
-    } else { 
-        oggi.setDate(oggi.getDate() - (giornoSettimana - 1)); 
-    }
-
-    for (let i = 0; i < 5; i++) {
-        let giorno = ("0" + oggi.getDate()).slice(-2);
-        let mese = ("0" + (oggi.getMonth() + 1)).slice(-2);
-        let anno = oggi.getFullYear();
-        let data = `${giorno}/${mese}/${anno}`;
-
-        for (let ora = 8; ora <= 12; ora++) {
-            //console.info(dizz);
-            let key=Object.keys(dizz);
-           // console.info("lunghezza "+key.length);
-            for(let specializzazione=0;specializzazione<key.length;specializzazione++){
-                
-            //  console.info(key[specializzazione]);
-                let chiave = `${data}###${ora}###${key[specializzazione]}`;
-                dizionario[chiave] = "";
+ function creaDizionarioSettimana(dizionarioTipologie) {
+    return new Promise((resolve,reject)=>{
+        let valcache;
+        let dizionario = {};
+        prendiDati(myKey, myToken).then((valcache)=>{
+            console.info("valcache = " + valcache);
+            console.log(valcache);
+            let oggi = new Date();
+            let giornoSettimana = oggi.getDay();
+            if (giornoSettimana === 6) { 
+                oggi.setDate(oggi.getDate() + 2); 
+            } else if (giornoSettimana === 0) { 
+                oggi.setDate(oggi.getDate() + 1); 
+            } else { 
+                oggi.setDate(oggi.getDate() - (giornoSettimana - 1)); 
             }
-            
-        }
-        oggi.setDate(oggi.getDate() + 1);
-    }
+            for (let i = 0; i < 5; i++) {
+                let giorno = ("0" + oggi.getDate()).slice(-2);
+                let mese = ("0" + (oggi.getMonth() + 1)).slice(-2);
+                let anno = oggi.getFullYear();
+                let data = `${giorno}/${mese}/${anno}`;
 
-    // la cache non va 
-    valcache=
-        {"04/11/2024###8###Ortopedia":"Simone",
-            "05/11/2024###12###Neurologia":"Thomas",
-            "06/11/2024###12###Oncologia":"barani"}
-    
-if(valcache!==null){
-    for (let chiave in valcache) {
-        
-        if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
-            dizionario[chiave] = valcache[chiave];
-        }
-    }
+                for (let ora = 8; ora <= 12; ora++) {
+                    //console.info(dizz);
+                    let key=Object.keys(dizionarioTipologie);
+                // console.info("lunghezza "+key.length);
+                    for(let specializzazione=0;specializzazione<key.length;specializzazione++){
+                        
+                    //  console.info(key[specializzazione]);
+                        let chiave = `${data}###${ora}###${key[specializzazione]}`;
+                        dizionario[chiave] = "";
+                    }
+                    
+                }
+                oggi.setDate(oggi.getDate() + 1);
+            }
+            if(valcache!==null){
+                for (let chiave in valcache) {
+                    
+                    if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
+                        dizionario[chiave] = valcache[chiave];
+                    }
+                }
+            }
+            resolve(dizionario); // 
+        });
+    });
 }
 
-   // console.log("prim dizz");    
-    //console.log(dizionario);
-    //console.log("dopo dizz");
-    return dizionario; // rileva
-}
 
 
 
@@ -226,9 +211,10 @@ if(valcache!==null){
 
 
 
-async function main() {
+
+ function main() {
     
-    let testa = await creaDizionarioSettimana({"Cardiologia":"",
+    let testa =  creaDizionarioSettimana({"Cardiologia":"",
         "Psicologia":"",
         "Oncologia":"", 
         "Ortopedia":"",

@@ -37,14 +37,16 @@ const createSpecialtyTabs = (parentElement) => {
       this.setTableForActiveSpecialty();
     },
     
-    setTableForActiveSpecialty: async function(index) {
+    setTableForActiveSpecialty: function(index) {
       activeIndex = index;
       Tipologia=index;
       //const activeSpecialtyKey = Object.keys(specialties)[activeIndex];
-      let specialtyData = await creaDizionarioSettimana(specialties); // Ottieni i dati specifici
-     console.log("specialtyData" +specialtyData);
-     console.info(hours);
-      table.crea(specialtyData, hours,index); 
+      creaDizionarioSettimana(specialties).then((specialtyData) => {
+        console.log("specialtyData" +specialtyData);
+        console.info(hours);
+        table.crea(specialtyData, hours,index)
+      }); // Ottieni i dati specifici
+     ; 
       
     }
   };
@@ -62,11 +64,11 @@ const createBookButton = (parentElement) => {
         </div>
       `;
      
-      document.getElementById("bookAppointmentButton").addEventListener("click", () => {
+      document.getElementById("bookAppointmentButton").onclick = () => {
         createBookingModal();
-      });
+      }
     }
-  };
+  }
 };
 
 const specialtyTabs = createSpecialtyTabs(document.getElementById("specialty-tabs"));
@@ -74,7 +76,7 @@ const bookButton = createBookButton(document.getElementById("controls"));
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  specialtyTabs.setTableForActiveSpecialty("Oncologia");
+  specialtyTabs.setTableForActiveSpecialty("Ortopedia");
   specialtyTabs.render();
   bookButton.render();
 });

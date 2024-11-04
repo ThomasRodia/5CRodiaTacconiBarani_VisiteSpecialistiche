@@ -34,7 +34,7 @@ const createSpecialtyTabs = (parentElement) => {
     },
     render: function() {
       parentElement.innerHTML = this.build();
-      this.setTableForActiveSpecialty;
+      this.setTableForActiveSpecialty();
     },
     
     setTableForActiveSpecialty: async function(index) {

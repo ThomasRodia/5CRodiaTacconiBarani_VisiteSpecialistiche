@@ -1,3 +1,5 @@
+//Da cambiare con le promise
+
 function createBookingModal() {
   if (!document.getElementById("bookingModal")) {
     const modalHTML = `

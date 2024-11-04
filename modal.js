@@ -46,12 +46,15 @@ function createBookingModal() {
 
   $('#bookingModal').modal('show');
 
-  document.getElementById("submitBooking").onclick = handleBookingSubmit;
+  document.getElementById("submitBooking").onclick = () => {
+    salvaEControllaDati();
+     };
   document.getElementById("bookingForm").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
+      console.log("tetst");
       event.preventDefault(); // Previene il comportamento predefinito del form
 
-      handleBookingSubmit();
+    //  handleBookingSubmit();
       salvaEControllaDati();
     }
   });
@@ -78,28 +81,49 @@ conole.log(appointmentCache);
   document.getElementById("bookingForm").reset(); 
   renderWeeklySchedule(); 
 }
-async function salvaEControllaDati(){
+
+
+
+
+
+
+
+ function salvaEControllaDati(){
+  console.log("test");
   const date = document.getElementById("appointmentDate").value;
   const time = document.getElementById("appointmentTime").value;
   const patientName = document.getElementById("patientName").value;
-
-  let chiavedaAggiungere=date+"###"+time+"###"+Tipologia;
+  let newdatetemp=date.split("-");
+let newdate=newdatetemp[2]+"/"+newdatetemp[1]+"/"+newdatetemp[0];
+  let chiavedaAggiungere=newdate+"###"+time+"###"+Tipologia;
   let valcache;
-  try {
-      valcache = await prendiDati(myKey, myToken);
-      console.log("Valcache aggiornato:", valcache);
-  } catch (error) {
-      console.error("Errore durante il recupero dei dati:", error);
-  }
+ 
+    prendiDati(myKey, myToken).then((valcache)=>{
+  
+
+
+  
   for (let chiave in valcache) {
-        
-    if (dizionario[chiave] !== undefined && valcache[chiave] !== "") {
+
+
+        console.log(chiave+":"+valcache[chiave]);
+        console.log(chiavedaAggiungere+":"+patientName);
+
+
+
+
+    if ( valcache[chiavedaAggiungere] != null) {
       alert("il posto non è libero");
       document.getElementById("appointmentDate").value="";
       document.getElementById("appointmentTime").value="";
       return; 
-    }else{salvaDati(chiavedaAggiungere,patientName);}
+    }else{
+      console.log("CHIAVE");
+  console.log(chiavedaAggiungere);
+  console.log("valore");
+  console.log(patientName);
+    salvaDati(chiavedaAggiungere,patientName);}
 }
-
+});
 
 }

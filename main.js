@@ -1,9 +1,9 @@
 console.log("main.js è stato caricato correttamente");
 let Tipologia=null;
-const myToken = '63ae5888-947a-49cd-a85e-21a658ddab9e';
+const myToken = '4d59e358-fe00-4b44-b76b-b3d55d2c0d77';
 const myKey = 'visite';
 //const booker = createForm(document.getElementById("book"));//form su cui lavorare @simone Tacconi 
-const set ='https://ws.cipiaceinfo.it/cache/sett';
+const set ='https://ws.cipiaceinfo.it/cache/set';
 //const get='https://ws.cipiaceinfo.it/cache/get';
 informazioni={}// dove mettere tutte le info @thomas rodia
 

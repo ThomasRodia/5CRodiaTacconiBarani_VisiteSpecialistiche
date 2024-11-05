@@ -116,22 +116,6 @@ const prendiDati = (myKey, myToken) => {
     });
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  function creaDizionarioSettimana(dizionarioTipologie) {
     return new Promise((resolve,reject)=>{
         let valcache;

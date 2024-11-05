@@ -105,22 +105,22 @@ const createSpecialtyTabs = (parentElement) => {
       return Object.keys(specialties).map((key, index) => {
         let buttonClass = 'specialty-tab';
         if (index === activeIndex) {
-          buttonClass += ' active'; // Keep the active class for the initial active tab
+          buttonClass += ' active'; 
           console.log("Prova"); 
         }
 
-        // Create button HTML without onclick
+        
         return '<button class="' + buttonClass + '" id="tab-' + index + '">' + key + '</button>';
       }).join('');
     },
     render: function() {
       parentElement.innerHTML = this.build();
 
-      // Attach onclick handlers after rendering
+
       Object.keys(specialties).forEach((key, index) => {
         document.getElementById('tab-' + index).onclick = () => {
-          this.setTableForActiveSpecialty(index); // Set active specialty
-          this.updateButtonColors(index); // Update button colors
+          this.setTableForActiveSpecialty(index); 
+          this.updateButtonColors(index); 
         };
       });
     },
@@ -133,7 +133,7 @@ const createSpecialtyTabs = (parentElement) => {
         console.log("specialtyData: " + specialtyData);
         console.info(hours);
         table.crea(specialtyData, hours, Tipologia);
-      }); // Get specific data
+      });
     },
     
     updateButtonColors: function(activeIndex) {

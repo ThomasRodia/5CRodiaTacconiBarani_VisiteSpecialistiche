@@ -14,19 +14,19 @@ body {
 .specialty-tab {
   padding: 10px 20px;
   margin-right: 5px;
-  background-color: #f0f0f0; /* Default background color */
+  background-color: #f0f0f0; 
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .specialty-tab.active {
-  background-color: black; /* Active color */
+  background-color: black;
   color: white;
 }
 
 .specialty-tab:not(.active):hover {
-  background-color: #e0e0e0; /* Hover color */
+  background-color: #e0e0e0;
 }
 
 .book-button {
